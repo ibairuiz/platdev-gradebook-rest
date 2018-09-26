@@ -41,7 +41,7 @@ public class AssignmentRestService extends Application {
 	@GET
 	@Produces("text/plain")
 	public String working() {
-		return "El servicio está publicado correctamente.";
+		return "El servicio esta publicado correctamente.";
 	}
 	
 	@GET

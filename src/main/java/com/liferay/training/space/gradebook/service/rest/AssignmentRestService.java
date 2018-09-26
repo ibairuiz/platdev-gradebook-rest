@@ -2,6 +2,8 @@ package com.liferay.training.space.gradebook.service.rest;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.CompanyService;
@@ -33,6 +35,15 @@ import org.osgi.service.component.annotations.Reference;
 )
 @ApplicationPath("/")
 public class AssignmentRestService extends Application {
+	
+	private Log logger = LogFactoryUtil.getLog(AssignmentRestService.class.getName());
+	
+	@GET
+	@Produces("text/plain")
+	public String working() {
+		return "El servicio está publicado correctamente.";
+	}
+	
 	@GET
 	@Path("/assignments")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -50,6 +61,7 @@ public class AssignmentRestService extends Application {
 			return JSONFactoryUtil.serialize(assignments);
 			
 		} catch (PortalException e) {
+			logger.error(e);
 			return "[{}]";
 		}
 	}
@@ -60,6 +72,7 @@ public class AssignmentRestService extends Application {
 		try {
 			return JSONFactoryUtil.serialize(assignmentService.getAssignment(assignmentId));
 		} catch (Exception e) {
+			logger.error(e);
 			return "{}";
 		}
 	}	
